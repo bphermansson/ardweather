@@ -17,12 +17,11 @@ apikey = "b0660d27cc88ee1a916b7bbb4b9f8baf"
 nodeid = 1
 conn = httplib.HTTPConnection(domain)
 
+# This depends on where the Ardweather Arduino is connected
 #ardPort="/dev/ttyUSB0"
 #ardPort="/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0"
 #ardPort="/dev/serial/by-id/usb-FTDI_TTL232R_FTCW2AXL-if00-port0"
 ardPort="/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0"
-
-emonurl="http://192.168.1.6/emoncms/input/post.json"
 
 # Check no of arguments
 if len(sys.argv) < 2:
