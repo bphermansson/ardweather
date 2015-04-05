@@ -17,7 +17,7 @@ apikey = "b0660d27cc88ee1a916b7bbb4b9f8baf"
 nodeid = 1
 conn = httplib.HTTPConnection(domain)
 
-# This depends on where the Ardweather Arduino is connected
+# This depends on the serial adapter used
 #ardPort="/dev/ttyUSB0"
 #ardPort="/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0"
 #ardPort="/dev/serial/by-id/usb-FTDI_TTL232R_FTCW2AXL-if00-port0"
@@ -61,6 +61,7 @@ print(status)
 
 # Split read values 
 parts = status.split(';')
+# Debug: 
 #print parts[0]
 #print parts[1]
 #print parts[2]
@@ -70,8 +71,11 @@ parts = status.split(';')
 nodeid = cnl
 # Create payload from read values
 csv = ",".join(parts)
+
+epoch_time = int(time.time())
+
 # Send values to Emoncms
-conn.request("GET", "/"+emoncmspath+"/input/post.json?apikey="+apikey+"&node="+str(nodeid)+"&csv="+csv)
+conn.request("GET", "/"+emoncmspath+"/input/post.json?time="+str(epoch_time)+"&apikey="+apikey+"&node="+str(nodeid)+"&csv="+csv)
 response = conn.getresponse()
 #print response.read()
 
