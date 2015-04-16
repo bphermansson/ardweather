@@ -14,14 +14,14 @@ import httplib
 # Local Emoncms
 domain = "localhost"
 emoncmspath = "emoncms"
-apikey = "b0660d27cc88ee1a916b7bbb4b9f8baf"
+apikey = ""
 nodeid = 1
 conn = httplib.HTTPConnection(domain)
 
 # Remote Emoncms
 remotedomain="emoncms.org"
 remoteemoncmspath = "emoncms"
-remoteapikey = "bdd96271de3ff345c087afa276d1a619"
+remoteapikey = ""
 remotenodeid = 1
 remoteconn = httplib.HTTPConnection(remotedomain)
 
