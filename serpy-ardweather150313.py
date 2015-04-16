@@ -11,11 +11,19 @@ import sys, string
 import httplib
 
 # For Emoncms, inspired by https://github.com/openenergymonitor/EmoncmsPythonLink/blob/master/pylink.py
+# Local Emoncms
 domain = "localhost"
 emoncmspath = "emoncms"
 apikey = "b0660d27cc88ee1a916b7bbb4b9f8baf"
 nodeid = 1
 conn = httplib.HTTPConnection(domain)
+
+# Remote Emoncms
+remotedomain="emoncms.org"
+remoteemoncmspath = "emoncms"
+remoteapikey = "bdd96271de3ff345c087afa276d1a619"
+remotenodeid = 1
+remoteconn = httplib.HTTPConnection(remotedomain)
 
 # This depends on the serial adapter used
 #ardPort="/dev/ttyUSB0"
@@ -74,10 +82,18 @@ csv = ",".join(parts)
 
 epoch_time = int(time.time())
 
-# Send values to Emoncms
+# Send values to local Emoncms
+#conn.set_debuglevel(3)
 conn.request("GET", "/"+emoncmspath+"/input/post.json?time="+str(epoch_time)+"&apikey="+apikey+"&node="+str(nodeid)+"&csv="+csv)
 response = conn.getresponse()
-#print response.read()
+print response.read()
+
+# Send values to Emoncms.org
+#remoteconn.set_debuglevel(3)
+remoteconn.request("GET", "/"+remoteemoncmspath+"/input/post.json?time="+str(epoch_time)+"&apikey="+remoteapikey+"&node="+str(cnl)+"&csv="+csv)
+response = remoteconn.getresponse()
+print response.read()
+#
 
 # Clean up
 del status
